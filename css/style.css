@@ -1,0 +1,65 @@
+.bg-img {
+    background-image: url('../img/bg1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.logo {
+    display: none;
+    height: 150px;
+}
+
+
+.logo1 {
+    display: block;
+    margin: 5em auto;
+
+}
+
+
+.board-container {
+    margin: 3em auto;
+    border: 2px solid black;
+}
+
+
+.cell {
+    text-align: center;
+    font-size: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+
+.icons {
+    height: 2em;
+    width: 2em;
+}
+
+
+.game-info-container {
+    color: white;
+    padding: 20px;
+    position: absolute;
+    top: 15em;
+    left: 5em;
+    display: none;
+}
+
+
+.btn-container {
+    text-align: center;
+}
+
+.start-btn,
+.restart-btn {
+    background-color: transparent;
+    font-size: 5em;
+    color: yellow;
+}
+
+.restart-btn {
+    display: none;
+
+}
