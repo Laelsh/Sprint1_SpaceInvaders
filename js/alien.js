@@ -22,17 +22,27 @@ function createAliens(board) {
 
     for (var i = 0; i < ALIEN_ROW_COUNT; i++) {
         for (var j = startIdx; j < (startIdx + ALIEN_ROW_LENGTH); j++) {
-            if (i === 0) board[i][j] = ALIEN1
-            if (i === 1) board[i][j] = ALIEN2
-            if (i === 2) board[i][j] = ALIEN3
+            if (i === 0) board[i][j].gameObject = ALIEN1
+            if (i === 1) board[i][j].gameObject = ALIEN2
+            if (i === 2) board[i][j].gameObject = ALIEN3
+            gGame.alienCount++
         }
     }
-
 }
 
 
+function isAlien (pos) {
+    const aliens = [ALIEN1, ALIEN2, ALIEN3]
+    return aliens.includes(gBoard[pos.i][pos.j].gameObject)
+}
 
-function handleAlienHit(pos) { }
+
+function handleAlienHit(pos) {
+    updateCell(pos)
+    updateScore()
+    gGame.alienCount--
+
+ }
 
 
 function shiftBoardRight(board, fromI, toI) { }
