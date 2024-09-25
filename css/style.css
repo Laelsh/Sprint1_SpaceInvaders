@@ -13,37 +13,32 @@
 
 .logo1 {
     display: block;
-    margin: 5em auto;
-
+    margin: 50px auto;
 }
 
 
 .board-container {
-    margin: 3em auto;
-    border: 2px solid black;
+    margin: 15px auto;
+    border: 3px solid black;
+    visibility: hidden;
 }
 
 
-.cell {
-    text-align: center;
-    font-size: 1.5em;
-    width: 1.5em;
-    height: 1.5em;
-}
-
-
+.cell,
 .icons {
-    height: 2em;
-    width: 2em;
+    text-align: center;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    vertical-align: middle;
 }
 
 
 .game-info-container {
     color: white;
-    padding: 20px;
     position: absolute;
-    top: 15em;
-    left: 5em;
+    top: 250px;
+    left: 120px;
     display: none;
 }
 
@@ -52,20 +47,52 @@
     text-align: center;
 }
 
+
 .start-btn,
 .restart-btn {
     background-color: transparent;
-    font-size: 5em;
+    font-size: 30px;
     color: yellow;
 }
 
+
 .restart-btn {
     display: none;
+}
 
+
+.laser {
+    height: 15px;
+}
+
+
+.win-modal {
+    display: none;
+    width: 300px;
+    height: 100px;
+    background-image: url('../img/winbg.png');
+    border: 1px solid black;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 
 
-.laser {
-    height: 1em;    
+
+.lose-modal {
+    display: none;
+    width: 300px;
+    height: 100px;
+    background-image: url('../img/losebg.png');
+    border: 1px solid black;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }

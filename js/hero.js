@@ -6,7 +6,7 @@ const LASER_SPEED = 80
 var gHero
 var gIntervalLaser
 var gBlinkLaser
-var gLaserPos
+// var gLaserPos
 
 // creates the hero and place it on board 
 function createHero(board) {
@@ -17,6 +17,7 @@ function createHero(board) {
     }
 
     board[gHero.pos.i][gHero.pos.j].gameObject = HERO
+    board[gHero.pos.i][gHero.pos.j].type = 'HERO'
 
 }
 
@@ -42,7 +43,7 @@ function onKeyDown(ev) {
 
 // Move the hero right (1) or left (-1) 
 function moveHero(dir) {
-    if (!gGame.isOn) return 
+    if (!gGame.isOn) return
 
     var nextJ = gHero.pos.j + dir
     if (nextJ < 0 || nextJ > gBoard[0].length - 1) return
@@ -59,7 +60,7 @@ function moveHero(dir) {
 
 // Sets an interval for shutting (blinking) the laser up towards aliens 
 function shoot() {
-    if (!gGame.isOn || gHero.isShoot) return 
+    if (!gGame.isOn || gHero.isShoot) return
 
     gHero.isShoot = true
     var laserPos = {
@@ -73,7 +74,7 @@ function shoot() {
         if (laserPos.i < 0) {
             clearInterval(gIntervalLaser)
             gHero.isShoot = false
-             return
+            return
         }
 
         if (isAlien(laserPos)) {
@@ -81,17 +82,21 @@ function shoot() {
             clearInterval(gIntervalLaser)
             gHero.isShoot = false
             return
-            
+
+    
+
+
+
         }
 
 
 
 
 
-        gLaserPos = laserPos
+        // gLaserPos = laserPos
         blinkLaser(laserPos, LASER)
     }, LASER_SPEED)
- 
+
 
 }
 
@@ -101,5 +106,5 @@ function blinkLaser(pos) {
     updateCell(pos, LASER)
     gBlinkLaser = setTimeout(() => {
         updateCell(pos, EMPTY)
-    }, LASER_SPEED - 20)
+    }, 60)
 }

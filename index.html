@@ -14,9 +14,10 @@
     <img src="img/logo2.png" alt="logo" class="logo">
     <img src="img/logo2.png" alt="logo" class="logo1">
 
+
     <div class="game-info-container">
-        <h2>Score: <span class="score">0</span></h2>
-        <h2>Lives: <span class="lives"></span></h2>
+        <h2>Score: <span class="score"></span></h2>
+        <h2>Aliens: <span class="aliens-count"></span></h2>
     </div>
 
     <table class="board-container">
@@ -25,8 +26,18 @@
 
     <div class="btn-container">
         <button onclick="onInit()" class="start-btn">Start Game</button>
-        <button onclick="onInit()" class="restart-btn">Restart</button>
+        <button onclick="restartGame()" class="restart-btn">Restart</button>
     </div>
+
+    <div class="win-modal">
+        <h2>You Win!!!</h2>
+    </div>
+
+    <div class="lose-modal">
+        <h2>You lose!!!</h2>
+    </div>
+
+
 
     <script src="js/game.js"></script>
     <script src="js/hero.js"></script>
