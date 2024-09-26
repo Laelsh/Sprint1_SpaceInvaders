@@ -58,11 +58,11 @@ function handleAlienHit(pos) {
 function shiftBoardRight(board, fromI, toI) {
     for (var i = fromI; i <= toI; i++) {
         for (var j = board[i].length - 1; j >= 0; j--) {
-            var alienType = board[i][j - 1].gameObject
+            var alienType = board[i][j].gameObject
 
             if (alienType === ALIEN1 || alienType === ALIEN2 || alienType === ALIEN3) {
                 updateCell({ i, j })
-                updateCell({ i, j: j - 1 }, alienType)
+                updateCell({ i, j: j + 1 }, alienType)
             }
 
         }
@@ -73,12 +73,12 @@ function shiftBoardRight(board, fromI, toI) {
 
 function shiftBoardLeft(board, fromI, toI) {
     for (var i = fromI; i <= toI; i++) {
-        for (var j = 0; j < board[i].length - 1; j++) {
-            var alienType = board[i][j + 1].gameObject
+        for (var j = 0; j < board[i].length; j++) {
+            var alienType = board[i][j].gameObject
 
             if (alienType === ALIEN1 || alienType === ALIEN2 || alienType === ALIEN3) {
                 updateCell({ i, j })
-                updateCell({ i, j: j + 1 }, alienType)
+                updateCell({ i, j: j - 1 }, alienType)
             }
 
         }
@@ -87,11 +87,10 @@ function shiftBoardLeft(board, fromI, toI) {
 
 
 function shiftBoardDown(board, fromI, toI) {
-
     for (var i = toI; i >= fromI; i--) {
-        for (var j = ALIEN_ROW_COUNT; j <= 10 ; j++) {
+        for (var j = 0; j < board[i].length; j++) {
             var alienType = board[i][j].gameObject
-            console.log('alienType:', alienType)
+
             if (alienType === ALIEN1 || alienType === ALIEN2 || alienType === ALIEN3) {
                 updateCell({ i, j })
                 updateCell({ i: i + 1, j }, alienType)
@@ -103,14 +102,12 @@ function shiftBoardDown(board, fromI, toI) {
     gAliensTopRowIdx++
     gAliensBottomRowIdx++
 
-    console.log('gAliensTopRowIdx:', gAliensTopRowIdx)
-    console.log('gAliensBottomRowIdx:', gAliensBottomRowIdx)
 
 }
 
-// runs the interval for moving aliens side to side and down 
-// it re-renders the board every time 
-// when the aliens are reaching the hero row - interval stops 
+
+
+
 function moveAliens() {
     if (!gGame.isOn) return
 
@@ -118,34 +115,55 @@ function moveAliens() {
         if (gIsAlienFreeze) return
         if (gAlienDir === 1) {
             shiftBoardRight(gBoard, gAliensTopRowIdx, gAliensBottomRowIdx)
+            
 
-
-            for (var i = 0; i < gBoard.length - 1; i++) {
-                const rightEdge = gBoard[i][gBoard.length - 1].gameObject
-                console.log('rightEdge:', rightEdge)
-
-
-
-                if (rightEdge === ALIEN1 || rightEdge === ALIEN2 || rightEdge === ALIEN3) {
-                    gAlienDir = -1
-                    console.log('gAlienDir:', gAlienDir)
-
-                    shiftBoardDown(gBoard, gAliensTopRowIdx, gAliensBottomRowIdx)
-                }
+            if (isAtRightEdge(gBoard)) {
+                shiftBoardDown(gBoard, gAliensTopRowIdx, gAliensBottomRowIdx)
+                gAlienDir = -1
             }
         } else {
             shiftBoardLeft(gBoard, gAliensTopRowIdx, gAliensBottomRowIdx)
 
-            for (var i = 0; i > gBoard.length; i++) {
-                const leftEdge = gBoard[i][0].gameObject
-                console.log('leftEdge:', leftEdge)
-
+            if (isAtLeftEdge(gBoard)) {
+                shiftBoardDown(gBoard, gAliensTopRowIdx, gAliensBottomRowIdx)
                 gAlienDir = 1
             }
         }
 
-    }, ALIEN_SPEED);
 
+        for (var j = 0; j < gBoard.length; j++) {
+            if (gBoard[gHero.pos.i][j] === ALIEN1 || gBoard[gHero.pos.i][j] === ALIEN2 ||
+                gBoard[gHero.pos.i][j] === ALIEN3) {
+                openLoseModal()
+                gameOver()
+            }
+        }
+
+
+    }, ALIEN_SPEED
+    )
 
 }
 
+
+function isAtRightEdge(board) {
+    for (var i = gAliensTopRowIdx; i <= gAliensBottomRowIdx; i++) {
+        var gameItem = board[i][board.length - 1].gameObject
+
+        if (gameItem === ALIEN1 || gameItem === ALIEN2 || gameItem === ALIEN3)
+            return true
+    }
+    return false
+}
+
+
+
+function isAtLeftEdge(board) {
+    for (var i = gAliensTopRowIdx; i <= gAliensBottomRowIdx; i++) {
+        var gameItem = board[i][0].gameObject
+
+        if (gameItem === ALIEN1 || gameItem === ALIEN2 || gameItem === ALIEN3)
+            return true
+    }
+    return false
+}

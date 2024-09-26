@@ -20,6 +20,7 @@ var gGame = {
 
 function onInit() {
 
+
     gGame.isOn = true
     gGame.score = 0
     gBoard = createBoard()
@@ -32,21 +33,21 @@ function onInit() {
     renderAlienCount()
 
     moveAliens()
-    
-    
+
+
 }
 
 function createBoard() {
-    
+
     var board = []
-    
+
     for (var i = 0; i < BOARD_SIZE; i++) {
         board[i] = []
         for (var j = 0; j < BOARD_SIZE; j++) {
             board[i][j] = createCell(EMPTY)
         }
     }
-    
+
     return board
 }
 
@@ -54,18 +55,18 @@ function createBoard() {
 // Render the board as a <table> to the page 
 function renderBoard(board) {
     var strHTML = ''
-    
+
     for (var i = 0; i < board.length; i++) {
         strHTML += '<tr>'
         for (var j = 0; j < board[0].length; j++) {
             const cell = board[i][j].gameObject
             const className = `cell cell-${i}-${j}`
-            
+
             strHTML += `<td class="${className}">${cell}</td>`
         }
         strHTML += '</tr>'
     }
-    
+
     const elContainer = document.querySelector('.board')
     elContainer.innerHTML = strHTML
 
@@ -78,13 +79,9 @@ function renderBoard(board) {
     for (var i = 0; i < elGameInfoLogo.length; i++) {
         elGameInfoLogo[i].style.display = 'inline'
     }
-    
+
     const elBoardContainer = document.querySelector('.board-container')
     elBoardContainer.style.visibility = 'visible'
-    
-    
-    console.log('gBoard:', gBoard)
-    console.log('gGame:', gGame)
 
 }
 
@@ -141,12 +138,25 @@ function openWinModal() {
 
 
 
+function openLoseModal() {
+    const elLoseModal = document.querySelector('.lose-modal')
+    elLoseModal.style.display = 'block'
+
+    const elRestartBtn = document.querySelector('.restart-btn')
+    elRestartBtn.style.display = 'inline'
+
+}
+
+
 
 function gameOver() {
     clearIGameIntervals()
     gGame.isOn = false
 
-    openWinModal()
+
+    if (gGame.alienCount === 0) {
+        openWinModal()
+    }
 
 }
 
@@ -163,7 +173,7 @@ function clearIGameIntervals() {
 
 function restartGame() {
 
-    const elReset = document.querySelectorAll('.win-modal, .restart-btn')
+    const elReset = document.querySelectorAll('.win-modal, .restart-btn, .lose-modal')
     for (var i = 0; i < elReset.length; i++) {
         elReset[i].style.display = 'none'
     }

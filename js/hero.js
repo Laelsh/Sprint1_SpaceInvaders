@@ -17,7 +17,7 @@ function createHero(board) {
     }
 
     board[gHero.pos.i][gHero.pos.j].gameObject = HERO
-    board[gHero.pos.i][gHero.pos.j].type = 'HERO'
+
 
 }
 
