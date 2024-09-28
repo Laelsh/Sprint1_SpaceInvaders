@@ -10,6 +10,7 @@ const ALIEN1 = '<img src="img/alien1.png" class="icons">'
 const ALIEN2 = '<img src="img/alien2.png" class="icons">'
 const ALIEN3 = '<img src="img/alien3.png" class="icons">'
 const LASER = '<img src="img/laser.jpg" class="laser">'
+var bgMusic = new Audio('audio/bgmusic.mp3')
 
 var gBoard
 var gGame = {
@@ -23,6 +24,13 @@ function onInit() {
 
     gGame.isOn = true
     gGame.score = 0
+    gGame.alienCount = 0
+    gIsAlienFreeze = false
+    gAliensTopRowIdx = 0
+    gAliensBottomRowIdx = 2
+    gAlienDir = 1
+
+
     gBoard = createBoard()
 
     createAliens(gBoard)
@@ -34,6 +42,7 @@ function onInit() {
 
     moveAliens()
 
+    bgMusic.play()
 
 }
 
@@ -120,6 +129,7 @@ function updateAlienCount() {
 
 }
 
+
 function renderAlienCount() {
     const elAliensCount = document.querySelector('.aliens-count')
     elAliensCount.innerHTML = gGame.alienCount
@@ -150,12 +160,16 @@ function openLoseModal() {
 
 
 function gameOver() {
-    clearIGameIntervals()
     gGame.isOn = false
-
+    gIsAlienFreeze = true
+    clearIGameIntervals()
+    bgMusic.pause()
+    bgMusic.currentTime = 0
 
     if (gGame.alienCount === 0) {
         openWinModal()
+    } else {
+        openLoseModal()
     }
 
 }

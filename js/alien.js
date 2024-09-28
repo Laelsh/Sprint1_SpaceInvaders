@@ -10,11 +10,11 @@ var gIntervalAliens
 // that we should shift (left, right, and bottom) 
 // We need to update those when: 
 // (1) shifting down and (2) last alien was cleared from row 
-var gAliensTopRowIdx = 0
-var gAliensBottomRowIdx = 2
-var gAlienDir = 1
+var gAliensTopRowIdx
+var gAliensBottomRowIdx
+var gAlienDir
 
-var gIsAlienFreeze = false
+var gIsAlienFreeze
 
 
 
@@ -132,12 +132,12 @@ function moveAliens() {
 
 
         for (var j = 0; j < gBoard.length; j++) {
-            if (gBoard[gHero.pos.i][j] === ALIEN1 || gBoard[gHero.pos.i][j] === ALIEN2 ||
-                gBoard[gHero.pos.i][j] === ALIEN3) {
-                openLoseModal()
+            if (gBoard[gHero.pos.i][j].gameObject === ALIEN1 || gBoard[gHero.pos.i][j].gameObject === ALIEN2 ||
+                gBoard[gHero.pos.i][j].gameObject === ALIEN3) {
                 gameOver()
             }
         }
+
 
 
     }, ALIEN_SPEED

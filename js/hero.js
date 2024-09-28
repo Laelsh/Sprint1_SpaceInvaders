@@ -7,6 +7,7 @@ var gHero
 var gIntervalLaser
 var gBlinkLaser
 // var gLaserPos
+var laserAudio = new Audio('audio/lasersound.mp3')
 
 // creates the hero and place it on board 
 function createHero(board) {
@@ -67,6 +68,7 @@ function shoot() {
         i: gHero.pos.i,
         j: gHero.pos.j
     }
+    laserAudio.play()
 
     gIntervalLaser = setInterval(() => {
         laserPos.i--
